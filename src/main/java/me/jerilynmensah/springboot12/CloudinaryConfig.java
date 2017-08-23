@@ -15,7 +15,7 @@ import java.util.Map;
 public class CloudinaryConfig {
     private Cloudinary cloudinary;
     @Autowired
-    public CloudinaryConfig {
+    public CloudinaryConfig (
         @Value("${cloudinary.apikey}") String key,
         @Value("${cloudinary.apisecret}") String secret,
         @Value("${cloudinary.cloudname}") String cloud){
@@ -24,7 +24,7 @@ public class CloudinaryConfig {
             cloudinary.config.apiSecret=secret;
             cloudinary.config.apiKey=key;
         }
-    }
+
         public Map upload(Object file, Map options){
             try{
                 return cloudinary.uploader().upload(file, options);
@@ -33,11 +33,12 @@ public class CloudinaryConfig {
                 return null;
             }
     }
-    public String createUrl(String name, int width, int height, String action){
+    public String createUrl(String name, int width, int height,
+                            String action){
             return cloudinary.url()
-                    .transformation(new Transformation())
+                    .transformation(new Transformation()
                     .width(width).height(height)
-                    .border("2px_solid_black").crop(action)
+                    .border("2px_solid_black").crop(action))
                     .imageTag(name);
     }
 }
